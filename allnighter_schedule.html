@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ALL-NIGHTER SCHEDULE</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --cisco: #00c6ff;
+    --coa: #a855f7;
+    --mis: #f97316;
+    --matlab: #22c55e;
+    --banter: #f43f5e;
+    --setup: #fbbf24;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --glow-blue: 0 0 20px rgba(0,198,255,0.3);
+    --glow-purple: 0 0 20px rgba(168,85,247,0.3);
+    --glow-orange: 0 0 20px rgba(249,115,22,0.3);
+    --glow-green: 0 0 20px rgba(34,197,94,0.3);
+    --glow-pink: 0 0 20px rgba(244,63,94,0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(168,85,247,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0,198,255,0.05) 0%, transparent 50%);
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .header-eyebrow {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    animation: fadeIn 0.6s ease forwards;
+  }
+
+  .header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 10vw, 96px);
+    letter-spacing: 6px;
+    line-height: 1;
+    background: linear-gradient(135deg, #fff 0%, #a855f7 40%, #00c6ff 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInUp 0.8s ease forwards;
+  }
+
+  .header-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 12px;
+    letter-spacing: 2px;
+    animation: fadeIn 1s ease 0.3s both;
+  }
+
+  .header-time {
+    display: inline-flex;
+    gap: 32px;
+    margin-top: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 10px 28px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+    animation: fadeIn 1s ease 0.5s both;
+  }
+
+  .header-time span { color: var(--muted); margin-right: 6px; }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 48px;
+    animation: fadeIn 1s ease 0.6s both;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .legend-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    max-width: 820px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 88px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--border) 5%, var(--border) 95%, transparent);
+  }
+
+  /* BLOCK */
+  .block {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 16px;
+    animation: slideIn 0.5s ease both;
+  }
+
+  .block:nth-child(1)  { animation-delay: 0.05s; }
+  .block:nth-child(2)  { animation-delay: 0.10s; }
+  .block:nth-child(3)  { animation-delay: 0.15s; }
+  .block:nth-child(4)  { animation-delay: 0.20s; }
+  .block:nth-child(5)  { animation-delay: 0.25s; }
+  .block:nth-child(6)  { animation-delay: 0.30s; }
+  .block:nth-child(7)  { animation-delay: 0.35s; }
+  .block:nth-child(8)  { animation-delay: 0.40s; }
+  .block:nth-child(9)  { animation-delay: 0.45s; }
+  .block:nth-child(10) { animation-delay: 0.50s; }
+  .block:nth-child(11) { animation-delay: 0.55s; }
+  .block:nth-child(12) { animation-delay: 0.60s; }
+
+  .time-col {
+    width: 80px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-top: 16px;
+    gap: 2px;
+  }
+
+  .time-main {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .time-dur {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .node-col {
+    width: 18px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+  }
+
+  .node {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 2px solid;
+    background: var(--bg);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .content-col { flex: 1; }
+
+  .card {
+    border-radius: 14px;
+    padding: 18px 22px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card:hover { transform: translateX(4px); }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid currentColor;
+    opacity: 0.85;
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+
+  .card-body {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.7;
+  }
+
+  .task-list {
+    list-style: none;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .task-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: #94a3b8;
+  }
+
+  .task-list li::before {
+    content: '›';
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  /* BANTER CARD */
+  .banter-card {
+    border-radius: 14px;
+    padding: 16px 22px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(244,63,94,0.06);
+    border: 1px dashed rgba(244,63,94,0.4);
+    transition: transform 0.2s ease;
+  }
+
+  .banter-card:hover { transform: translateX(4px); }
+
+  .banter-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--banter);
+  }
+
+  .banter-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .banter-emoji {
+    font-size: 28px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .banter-text { flex: 1; }
+
+  .banter-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--banter);
+    letter-spacing: 0.3px;
+    margin-bottom: 4px;
+  }
+
+  .banter-desc {
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+
+  .banter-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    color: var(--banter);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+
+  /* COLOR SCHEMES */
+  .cisco .card::before    { background: var(--cisco); }
+  .cisco .card           { box-shadow: var(--glow-blue); }
+  .cisco .badge          { color: var(--cisco); }
+  .cisco .card-title     { color: var(--cisco); }
+  .cisco .node           { border-color: var(--cisco); box-shadow: 0 0 8px var(--cisco); }
+
+  .coa .card::before     { background: var(--coa); }
+  .coa .card             { box-shadow: var(--glow-purple); }
+  .coa .badge            { color: var(--coa); }
+  .coa .card-title       { color: var(--coa); }
+  .coa .node             { border-color: var(--coa); box-shadow: 0 0 8px var(--coa); }
+
+  .mis .card::before     { background: var(--mis); }
+  .mis .card             { box-shadow: var(--glow-orange); }
+  .mis .badge            { color: var(--mis); }
+  .mis .card-title       { color: var(--mis); }
+  .mis .node             { border-color: var(--mis); box-shadow: 0 0 8px var(--mis); }
+
+  .matlab .card::before  { background: var(--matlab); }
+  .matlab .card          { box-shadow: var(--glow-green); }
+  .matlab .badge         { color: var(--matlab); }
+  .matlab .card-title    { color: var(--matlab); }
+  .matlab .node          { border-color: var(--matlab); box-shadow: 0 0 8px var(--matlab); }
+
+  .setup .card::before   { background: var(--setup); }
+  .setup .badge          { color: var(--setup); }
+  .setup .card-title     { color: var(--setup); }
+  .setup .node           { border-color: var(--setup); box-shadow: 0 0 8px var(--setup); }
+
+  .banter-block .node    { border-color: var(--banter); box-shadow: 0 0 8px var(--banter); }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    margin-top: 52px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    animation: fadeIn 1s ease 1s both;
+  }
+
+  .footer strong {
+    color: var(--cisco);
+  }
+
+  /* PROGRESS BAR DECORATION */
+  .progress-bar {
+    max-width: 820px;
+    margin: 0 auto 40px;
+    display: flex;
+    gap: 3px;
+    animation: fadeIn 1s ease 0.8s both;
+  }
+
+  .prog-seg {
+    height: 5px;
+    border-radius: 3px;
+    flex: 1;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
+
+  @media (max-width: 600px) {
+    .timeline::before { left: 68px; }
+    .time-col { width: 62px; }
+    .time-main { font-size: 12px; }
+    body { padding: 24px 12px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">// session_start: tonight</div>
+  <h1>ALL-NIGHTER</h1>
+  <div class="header-sub">GRIND SCHEDULE · 4 SUBJECTS · NO SLEEP · ALL GAS</div>
+  <div class="header-time">
+    <div><span>START</span> 21:00</div>
+    <div><span>END</span> 06:00</div>
+    <div><span>DURATION</span> 9 HRS</div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--setup)"></div> Setup</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--cisco)"></div> Cisco</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--coa)"></div> COA – Logic Gates</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--mis)"></div> MIS</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--matlab)"></div> MATLAB</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--banter)"></div> Banter Break</div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar">
+  <div class="prog-seg" style="background:var(--setup);flex:0.5"></div>
+  <div class="prog-seg" style="background:var(--cisco);flex:1.5"></div>
+  <div class="prog-seg" style="background:var(--banter);flex:0.5"></div>
+  <div class="prog-seg" style="background:var(--coa);flex:1.5"></div>
+  <div class="prog-seg" style="background:var(--banter);flex:0.5"></div>
+  <div class="prog-seg" style="background:var(--mis);flex:1.5"></div>
+  <div class="prog-seg" style="background:var(--banter);flex:0.5"></div>
+  <div class="prog-seg" style="background:var(--mis);flex:1.5"></div>
+  <div class="prog-seg" style="background:var(--banter);flex:0.5"></div>
+  <div class="prog-seg" style="background:var(--matlab);flex:1.5"></div>
+  <div class="prog-seg" style="background:var(--setup);flex:0.5"></div>
+</div>
+
+<div class="timeline">
+
+  <!-- BLOCK 1 – SETUP -->
+  <div class="block setup">
+    <div class="time-col">
+      <div class="time-main">9:00 PM</div>
+      <div class="time-dur">10 min</div>
+    </div>
+    <div class="node-col"><div class="node"></div></div>
+    <div class="content-col">
+      <div class="card">
+        <div class="card-header">
+          <span class="badge">Opening</span>
+        </div>
+        <div class="card-title">Mission Briefing & Setup</div>
+        <ul class="task-list">
+          <li>Everyone gets their laptop out, chargers plugged in — no excuses at 3am</li>
+          <li>Open itexamanswers.net, bookmark the MIS notes & MATLAB files</li>
+          <li>Snacks on the table, water bottles out. Hydrate or die-drate</li>
+          <li>Quick go-around: who's most scared of what? (Answer: everyone, MATLAB)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 2 – CISCO -->
+  <div class="block cisco">
+    <div class="time-col">
+      <div class="time-main">9:10 PM</div>
+      <div class="time-dur">120 min</div>
+    </div>
+    <div class="node-col"><div class="node"></div></div>
+    <div class="content-col">
+      <div class="card">
+        <div class="card-header">
+          <span class="badge">Cisco · Checkpoint</span>
+        </div>
+        <div class="card-title">Cisco Checkpoint Exams</div>
+        <div class="card-body">Using <strong style="color:var(--cisco)">itexamanswers.net</strong> — work through the practice tests together, one question at a time on the big screen.</div>
+        <ul class="task-list">
+          <li>Open the relevant module checkpoint on itexamanswers.net</li>
+          <li>Each person attempts the answer independently first (no peeking — honour system)</li>
+          <li>Compare answers, discuss wrong ones. If 2+ people missed it, it's a flag to revisit</li>
+          <li>Cover: subnetting, OSI model, routing protocols, VLANs — whatever's on your exam</li>
+          <li>One person acts as "host" reading questions aloud. Rotate every 20 mins</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 3 – BANTER 1 -->
+  <div class="block banter-block">
+    <div class="time-col">
+      <div class="time-main">11:10 PM</div>
+      <div class="time-dur">15 min</div>
+    </div>
+    <div class="node-col"><div class="node"></div></div>
+    <div class="content-col">
+      <div class="banter-card">
+        <div class="banter-inner">
+          <div class="banter-emoji">🎭</div>
+          <div class="banter-text">
+            <div class="banter-tag">// break_01</div>
+            <div class="banter-title">BANTER BREAK #1 — "Who Would Fail First?"</div>
+            <div class="banter-desc">
+              Roast each other's Cisco answers from the session. Whoever got the most questions wrong has to summarize the next topic in exactly 5 sentences. Grab a drink, stretch your back, predict who'll be asleep by 3am. (Spoiler: it's the person who said "I'll be fine".)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 4 – COA PART 1 -->
+  <div class="block coa">
+    <div class="time-col">
+      <div class="time-main">11:25 PM</div>
+      <div class="time-dur">60 min</div>
+    </div>
+    <div class="node-col"><div class="node"></div></div>
+    <div class="content-col">
+      <div class="card">
+        <div class="card-header">
+          <span class="badge">COA · Part 1</span>
+        </div>
+        <div class="card-title">Logic Gates — Foundations</div>
+        <div class="card-body">Deep dive into the fundamentals. Don't skim — this is where exams steal marks.</div>
+        <ul class="task-list">
+          <li><strong style="color:var(--coa)">Basic gates:</strong> AND, OR, NOT — draw truth tables from scratch, no looking</li>
+          <li><strong style="color:var(--coa)">Universal gates:</strong> NAND and NOR — derive all other gates from just these two</li>
+          <li><strong style="color:var(--coa)">XOR & XNOR:</strong> truth tables, real-world uses (parity, comparators)</li>
+          <li>Practice drawing gate symbols freehand — they love asking you to label diagrams</li>
+          <li>Quiz each other: "which gate outputs 1 only when inputs differ?" style rapid-fire</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 5 – COA PART 2 -->
+  <div class="block coa">
+    <div class="time-col">
+      <div class="time-main">12:25 AM</div>
+      <div class="time-dur">30 min</div>
+    </div>
+    <div class="node-col"><div class="node"></div></div>
+    <div class="content-col">
+      <div class="card">
+        <div class="card-header">
+          <span class="badge">COA · Part 2</span>
+        </div>
+        <div class="card-title">Logic Gates — Boolean Algebra & Circuits</div>
+        <ul class="task-list">
+          <li><strong style="color:var(--coa)">Boolean laws:</strong> De Morgan's theorem — must memorise, comes up every year</li>
+          <li>Simplify 2–3 Boolean expressions using algebraic rules</li>
+          <li>Half adder & full adder circuit construction — trace through with actual 1s and 0s</li>
+          <li>Multiplexers and demultiplexers — understand the logic behind selection lines</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 6 – BANTER 2 -->
+  <div class="block banter-block">
+    <div class="time-col">
+      <div class="time-main">12:55 AM</div>
+      <div class="time-dur">15 min</div>
+    </div>
+    <div class="node-col"><div class="node"></div></div>
+    <div class="content-col">
+      <div class="banter-card">
+        <div class="banter-inner">
+          <div class="banter-emoji">🌙</div>
+          <div class="banter-text">
+            <div class="banter-tag">// break_02</div>
+            <div class="banter-title">MIDNIGHT BREAK #2 — "It's Actually Tomorrow Now"</div>
+            <div class="banter-desc">
+              Mandatory acknowledgment that you all survived midnight. Someone HAS to say something dramatic like "we're in the future now." Snack restock, bathroom run, and one person has to explain a NAND gate using a completely unrelated life analogy. If it doesn't make sense, they buy the next round of drinks.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 7 – MIS PART 1 -->
+  <div class="block mis">
+    <div class="time-col">
+      <div class="time-main">1:10 AM</div>
+      <div class="time-dur">80 min</div>
+    </div>
+    <div class="node-col"><div class="node"></div></div>
+    <div class="content-col">
+      <div class="card">
+        <div class="card-header">
+          <span class="badge">MIS · Part 1</span>
+        </div>
+        <div class="card-title">Management Information Systems — Core Concepts</div>
+        <div class="card-body">The theory-heavy section. Keep energy up — take turns reading notes aloud if eyes start glazing.</div>
+        <ul class="task-list">
+          <li><strong style="color:var(--mis)">MIS overview:</strong> definition, role in organisations, types of systems (TPS, DSS, ESS)</li>
+          <li><strong style="color:var(--mis)">Data vs Information vs Knowledge</strong> — classic exam trap, nail the distinction</li>
+          <li>Business processes: how MIS supports operational, managerial, and strategic decisions</li>
+          <li>Porter's competitive forces model & value chain — draw it, don't just read it</li>
+          <li>ERP systems: what they are, SAP as an example, integration benefits & challenges</li>
+          <li>Each person picks one topic and explains it to the group in 2 mins — no notes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 8 – BANTER 3 -->
+  <div class="block banter-block">
+    <div class="time-col">
+      <div class="time-main">2:30 AM</div>
+      <div class="time-dur">15 min</div>
+    </div>
+    <div class="node-col"><div class="node"></div></div>
+    <div class="content-col">
+      <div class="banter-card">
+        <div class="banter-inner">
+          <div class="banter-emoji">😂</div>
+          <div class="banter-text">
+            <div class="banter-tag">// break_03</div>
+            <div class="banter-title">CRISIS BREAK #3 — "Why Are We Like This"</div>
+            <div class="banter-desc">
+              The 2am check-in. Mandatory group photo to document the suffering. Take a walk around the room — no sitting. Someone impersonates the lecturer. Rank who's holding up best and who looks like they've seen a ghost. Re-energize: cold water on the face is legal performance enhancement.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 9 – MIS PART 2 -->
+  <div class="block mis">
+    <div class="time-col">
+      <div class="time-main">2:45 AM</div>
+      <div class="time-dur">80 min</div>
+    </div>
+    <div class="node-col"><div class="node"></div></div>
+    <div class="content-col">
+      <div class="card">
+        <div class="card-header">
+          <span class="badge">MIS · Part 2</span>
+        </div>
+        <div class="card-title">MIS — Advanced Topics & Applications</div>
+        <ul class="task-list">
+          <li><strong style="color:var(--mis)">Database & DBMS:</strong> relational models, SQL basics, data warehousing concepts</li>
+          <li><strong style="color:var(--mis)">E-commerce & digital business models</strong> — B2B, B2C, revenue models</li>
+          <li>Cybersecurity in MIS: threats, controls, CIA triad (Confidentiality, Integrity, Availability)</li>
+          <li>Decision support systems: structured vs unstructured decisions, GDSS</li>
+          <li>Past paper questions — attempt at least 3 short-answer MIS questions under timed conditions</li>
+          <li>Peer marking: swap answers, give brutal-but-fair feedback</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 10 – BANTER 4 -->
+  <div class="block banter-block">
+    <div class="time-col">
+      <div class="time-main">4:05 AM</div>
+      <div class="time-dur">15 min</div>
+    </div>
+    <div class="node-col"><div class="node"></div></div>
+    <div class="content-col">
+      <div class="banter-card">
+        <div class="banter-inner">
+          <div class="banter-emoji">🔥</div>
+          <div class="banter-text">
+            <div class="banter-tag">// break_04</div>
+            <div class="banter-title">4AM DELIRIUM BREAK #4 — "Everything Is Funny Now"</div>
+            <div class="banter-desc">
+              Welcome to the delirium zone. Everything is hilarious, nothing makes sense, and someone is definitely staring at the wall. Mandatory: everyone states one thing they've learned tonight in the most dramatic way possible. Whoever does it best gets to pick the next playlist. Finish any remaining food. MATLAB is next — don't let it win.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 11 – MATLAB -->
+  <div class="block matlab">
+    <div class="time-col">
+      <div class="time-main">4:20 AM</div>
+      <div class="time-dur">90 min</div>
+    </div>
+    <div class="node-col"><div class="node"></div></div>
+    <div class="content-col">
+      <div class="card">
+        <div class="card-header">
+          <span class="badge">MATLAB · Assignment</span>
+        </div>
+        <div class="card-title">MATLAB Assignment — Final Boss</div>
+        <div class="card-body">You're tired. MATLAB doesn't care. Power through — this is the home stretch.</div>
+        <ul class="task-list">
+          <li>Everyone opens the assignment brief and reads it together — clarify requirements first</li>
+          <li><strong style="color:var(--matlab)">Divide and conquer:</strong> split questions among the group, each person codes their section</li>
+          <li>Debug together — if it doesn't run, two brains on it immediately. No lone suffering</li>
+          <li>Key MATLAB skills to recall: matrix ops, loops (for/while), plotting, function files, fprintf</li>
+          <li>Comment your code as you go — 5am brain will forget what 4am brain was thinking</li>
+          <li>Compile everyone's sections, test the full script end-to-end</li>
+          <li>Final check: does the output match the expected format? Any hardcoded values to fix?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCK 12 – WRAP UP -->
+  <div class="block setup">
+    <div class="time-col">
+      <div class="time-main">5:50 AM</div>
+      <div class="time-dur">10 min</div>
+    </div>
+    <div class="node-col"><div class="node"></div></div>
+    <div class="content-col">
+      <div class="card">
+        <div class="card-header">
+          <span class="badge">Wrap-Up</span>
+        </div>
+        <div class="card-title">🏁 Victory Lap — 6:00 AM</div>
+        <ul class="task-list">
+          <li>Everyone submits / saves their work. No exceptions — check twice</li>
+          <li>Quick verbal recap: one thing learned from each subject (under 60 seconds each)</li>
+          <li>Schedule any follow-ups or gaps to revisit before the actual exam</li>
+          <li>Celebrate. You survived. Breakfast somewhere, or sleep immediately — both valid</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end timeline -->
+
+<div class="footer">
+  <div>// session.complete() · subjects covered: 4 · sleep: 0 · regrets: also 0</div>
+  <div style="margin-top:8px;">GOOD LUCK — <strong>YOU'VE GOT THIS</strong></div>
+</div>
+
+</body>
+</html>
